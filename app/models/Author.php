@@ -9,10 +9,31 @@ use jarvis\models\ModelObject;
  */
 class Author extends ModelObject
 {
-    public string $nickname;
-    public string $website;
-    public string $email;
-    public string $avatar;
+    private string $nickname;
+    private string $website;
+    private string $email;
+    private string $avatar;
+
+    public function SetNickname($nickname)
+    {
+        $this->nickname = $nickname;
+    }
+
+    public function SetWebsite($website)
+    {
+        $this->nickname = $website;
+    }
+
+    public function SeEmail($email)
+    {
+        $this->nickname = $email;
+    }
+
+    public function SetAvatar($avatar)
+    {
+        $this->nickname = $avatar;
+    }
+
 
     /**
      * GetNickName
