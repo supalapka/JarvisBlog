@@ -56,6 +56,30 @@ class SQL implements ISQL
 
     public static function update(string $table, ModelObject $model, string $condition)
     {
+        $connection = new Database(
+            Config::GetDatabaseSettingByKey("driver"),
+            Config::GetDatabaseSettingByKey("host"),
+            Config::GetDatabaseSettingByKey("name"),
+            Config::GetDatabaseSettingByKey("port"),
+            Config::GetDatabaseSettingByKey("user"),
+            Config::GetDatabaseSettingByKey("password")
+        );
+
+        $values = $model->GetAllData();
+        $sqlQuery = "UPDATE $table  SET ";
+        $i = 0;
+        foreach ($values as $key => $value) {
+            if (++$i != count($values))
+                $sqlQuery .= "$key=\"$values[$key]\", ";
+            else
+                $sqlQuery .= "$key=\"$values[$key]\" ";
+        }
+        $sqlQuery .= "WHERE $condition";
+        echo $sqlQuery;
+        $connection->beginTransaction();
+        $connection->query($sqlQuery);
+        $connection->commit();
+        $connection = null;
     }
 
 
